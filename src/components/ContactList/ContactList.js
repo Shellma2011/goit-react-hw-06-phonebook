@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import contactsActions from '../../redux/contacts/contacts-actions';
 import {
@@ -23,16 +23,18 @@ const ContactList = () => {
   // );
   const contacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
+  console.log('ContactList contacts', contacts);
+  console.log('ContactList dispatch', dispatch);
 
   const onDeleteContact = id => dispatch(contactsActions.deleteContact(id));
 
   return (
     <ContactListStyled>
-      {contacts.map(contact => (
-        <ContactItemStyled key={contact.id}>
-          <ContactInfoStyled>{contact.name + ':'}</ContactInfoStyled>
-          <ContactInfoStyled>{contact.number}</ContactInfoStyled>
-          <ContactButton type="button" onClick={() => onDeleteContact(contact.id)}>
+      {contacts.map(({ id, name, number }) => (
+        <ContactItemStyled key={id}>
+          <ContactInfoStyled>{name + ':'}</ContactInfoStyled>
+          <ContactInfoStyled>{number + ':'}</ContactInfoStyled>
+          <ContactButton type="button" onClick={onDeleteContact(id)}>
             Delete
           </ContactButton>
         </ContactItemStyled>

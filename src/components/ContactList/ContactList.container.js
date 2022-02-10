@@ -9,7 +9,7 @@ const getVisibleContacts = (allContacts, filter) => {
 };
 
 const mapStateToProps = ({ contacts: { items, filter } }) => ({
-  todos: getVisibleContacts(items, filter),
+  contacts: getVisibleContacts(items, filter),
 });
 
 const mapDispatchToProps = dispatch => ({

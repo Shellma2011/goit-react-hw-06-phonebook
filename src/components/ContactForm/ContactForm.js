@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import contactsActions from '../../redux/contacts/contacts-actions';
+import { addContact } from '../../redux/contacts/contacts-actions';
 // import actions from '../../redux/contacts/contacts-actions';
 // import { getContacts } from '../../redux/contacts/contacts-selectors';
 import shortid from 'shortid';
-import toast, { Toaster } from 'react-hot-toast';
+// import toast, { Toaster } from 'react-hot-toast';
 
 import {
   PhonebookForm,
@@ -14,18 +14,21 @@ import {
   PhonebookInput,
   PhonebookButton,
 } from './ContactForm.styled';
-// import { dispatch } from 'react-hot-toast/dist/core/store';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const [contacts, setContacts] = useState('');
+  // const [contacts, setContacts] = useState([]);
   // const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const nameInputId = shortid.generate();
   const telInputId = shortid.generate();
 
+  // const handleChangeName = e => setName(e.target.value);
+  // const handleChangeNumber = e => setNumber(e.target.value);
+
+  //---------------------------------------------
   const handleChange = e => {
     const { name, value } = e.target;
 
@@ -41,7 +44,18 @@ export default function ContactForm() {
       default:
         return;
     }
-    dispatch(contactsActions.addContact({ name, number }));
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (name === '') {
+      return alert(`${name} is already in contacts!`);
+    }
+
+    dispatch(addContact({ name, number }));
+    setName('');
+    setNumber('');
   };
 
   // const addContact = ({ name, number }) => {
@@ -64,20 +78,20 @@ export default function ContactForm() {
   //   }
   // };
 
-  const handleOnSubmit = e => {
-    e.preventDefault();
-    if (name === '') {
-      return toast.success(`${name} is already in contacts!`);
-    }
+  // const handleOnSubmit = e => {
+  //   e.preventDefault();
+  //   if (name === '') {
+  //     return toast.success(`${name} is already in contacts!`);
+  //   }
 
-    dispatch(contactsActions.addContact(name));
-    // onSave();
-    setName('');
+  //   dispatch(contactsActions.addContact(name));
+  //   // onSave();
+  //   setName('');
 
-    // onSubmit({ name, number });
-    // setName('');
-    // setNumber('');
-  };
+  //   // onSubmit({ name, number });
+  //   // setName('');
+  //   // setNumber('');
+  // };
 
   // const addContact = ({ name, number }) => {
   //   // const newContact = {
@@ -100,37 +114,39 @@ export default function ContactForm() {
   // };
 
   return (
-    <PhonebookForm onSubmit={handleOnSubmit}>
-      <Toaster />
-      <PhonebookLabel htmlFor={nameInputId}>
-        {/* <PhonebookLabel> */}
-        Name
-        <PhonebookInput
-          id={nameInputId}
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </PhonebookLabel>
-      <PhonebookLabel htmlFor={telInputId}>
-        {/* <PhonebookLabel> */} Number
-        <PhonebookInput
-          id={telInputId}
-          type="tel"
-          name="number"
-          value={number}
-          onChange={handleChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </PhonebookLabel>
-      <PhonebookButton type="submit">Add contact</PhonebookButton>
-    </PhonebookForm>
+    <>
+      <PhonebookForm onSubmit={handleSubmit}>
+        {/* <Toaster /> */}
+        <PhonebookLabel htmlFor={nameInputId}>
+          {/* <PhonebookLabel> */}
+          Name
+          <PhonebookInput
+            id={nameInputId}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </PhonebookLabel>
+        <PhonebookLabel htmlFor={telInputId}>
+          {/* <PhonebookLabel> */} Number
+          <PhonebookInput
+            id={telInputId}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={handleChange}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </PhonebookLabel>
+        <PhonebookButton type="submit">Add contact</PhonebookButton>
+      </PhonebookForm>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
-import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
 // import types from './contacts-types';
-// import actions from './contacts-actions';
+import actions from './contacts-actions';
 
 // const inicialState = [
 //   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -10,14 +10,14 @@ import { combineReducers } from 'redux';
 //   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 // ];
 
-// const items = createReducer(inicialState, {
-//   [actions.add]: (state, { payload }) => [...state, payload],
-//   [actions.delete]: (state, { payload }) => state.filter(({ id }) => id !== payload),
-// });
 const items = createReducer([], {
-  'contacts/add': (state, { payload }) => [...state, payload],
-  'contacts/delete': (state, { payload }) => state.filter(({ id }) => id !== payload),
+  [actions.addContact]: (state, { payload }) => [...state, payload],
+  [actions.deleteContact]: (state, { payload }) => state.filter(({ id }) => id !== payload),
 });
+// const items = createReducer([], {
+//   'contacts/add': (state, { payload }) => [...state, payload],
+//   'contacts/delete': (state, { payload }) => state.filter(({ id }) => id !== payload),
+// });
 
 // const items = (state = [], { type, payload }) => {
 //   switch (type) {

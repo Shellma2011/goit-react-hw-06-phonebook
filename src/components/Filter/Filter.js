@@ -10,14 +10,16 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <FilterLabel>
-      Find contacts by name
-      <FilterInput
-        type="text"
-        value={value}
-        onChange={e => dispatch(contactsActions.changeFilter(e.target.value))}
-      />
-    </FilterLabel>
+    <div>
+      <FilterLabel>
+        Find contacts by name
+        <FilterInput
+          type="text"
+          value={value}
+          onChange={e => dispatch(contactsActions.changeFilter(e.target.value))}
+        />
+      </FilterLabel>
+    </div>
   );
 };
 

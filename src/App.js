@@ -9,6 +9,7 @@ import Filter from './components/Filter';
 import Container from './components/Container';
 
 export default function App() {
+  //   ()
   // const [contacts, setContacts] = useState(
   //   () =>
   //     JSON.parse(window.localStorage.getItem('contacts')) ?? [
