@@ -1,6 +1,12 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import contactsActions from '../../redux/contacts/contacts-actions';
+// import actions from '../../redux/contacts/contacts-actions';
+// import { getContacts } from '../../redux/contacts/contacts-selectors';
 import shortid from 'shortid';
+import toast, { Toaster } from 'react-hot-toast';
 
 import {
   PhonebookForm,
@@ -8,10 +14,14 @@ import {
   PhonebookInput,
   PhonebookButton,
 } from './ContactForm.styled';
+// import { dispatch } from 'react-hot-toast/dist/core/store';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  // const [contacts, setContacts] = useState('');
+  // const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const nameInputId = shortid.generate();
   const telInputId = shortid.generate();
@@ -31,19 +41,70 @@ export default function ContactForm({ onSubmit }) {
       default:
         return;
     }
+    dispatch(contactsActions.addContact({ name, number }));
   };
+
+  // const addContact = ({ name, number }) => {
+  //   const newContact = {
+  //     id: shortid.generate(),
+  //     name,
+  //     number,
+  //   };
+  //   console.log(newContact);
+  //   if (
+  //     contacts.find(
+  //       contact =>
+  //         contact.name.toLocaleLowerCase() === newContact.name.toLocaleLowerCase() ||
+  //         contact.number === newContact.number,
+  //     )
+  //   ) {
+  //     return toast.success(`${newContact.name} is already in contacts!`);
+  //   } else {
+  //     return setContacts(contacts => [newContact, ...contacts]);
+  //   }
+  // };
 
   const handleOnSubmit = e => {
     e.preventDefault();
+    if (name === '') {
+      // return alert('Заполни текст заметки.');
+      return toast.success(`${name} is already in contacts!`);
+    }
 
-    onSubmit(name, number);
+    dispatch(contactsActions.addContact(name));
+    // onSave();
     setName('');
-    setNumber('');
+
+    // onSubmit({ name, number });
+    // setName('');
+    // setNumber('');
   };
+
+  // const addContact = ({ name, number }) => {
+  //   // const newContact = {
+  //   //   id: shortid.generate(),
+  //   //   name,
+  //   //   number,
+  //   // };
+  //   // console.log(newContact);
+  //   if (
+  //     contacts.find(
+  //       contact =>
+  //         contact.name.toLocaleLowerCase() === name.toLocaleLowerCase() ||
+  //         contact.number === number,
+  //     )
+  //   ) {
+  //     return toast.success(`${name} is already in contacts!`);
+  //   } else {
+  //     return dispatch(actions.addContact(name, number));
+  //   }
+  // };
 
   return (
     <PhonebookForm onSubmit={handleOnSubmit}>
+      <Toaster />
       <PhonebookLabel htmlFor={nameInputId}>
+        {/* <PhonebookLabel> */}
         Name
         <PhonebookInput
           id={nameInputId}
@@ -57,7 +118,7 @@ export default function ContactForm({ onSubmit }) {
         />
       </PhonebookLabel>
       <PhonebookLabel htmlFor={telInputId}>
-        Number
+        {/* <PhonebookLabel> */} Number
         <PhonebookInput
           id={telInputId}
           type="tel"
@@ -74,6 +135,12 @@ export default function ContactForm({ onSubmit }) {
   );
 }
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
+
+// const mapDispatchToProps = dispatch => ({
+//   onSubmit:(name, number)=>dispatch(contactsActions.addContact(name, number))
+// })
+
+// export default connect(mapDispatchToProps)(ContactForm)

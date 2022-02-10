@@ -1,14 +1,31 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
+import contactsActions from '../../redux/contacts/contacts-actions';
 import {
   ContactListStyled,
   ContactItemStyled,
   ContactInfoStyled,
   ContactButton,
 } from './ContactList.styled';
+// import Todo from '../Todo';
+// import contact from './';
+import { getVisibleContacts } from '../../redux/contacts/contacts-selectors';
 
-export default function ContactList({ contacts, onDeleteContact }) {
+// const getVisibleContacts = (allContacts, filter) => {
+//   const normalizeFilter = filter.toLocaleLowerCase();
+//   return allContacts.filter(({ number }) => number.toLowerCase().includes(normalizeFilter));
+// };
+
+const ContactList = () => {
+  // const contacts = useSelector(state =>
+  //   getVisibleContacts(state.contacts.items, state.contacts.filter),
+  // );
+  const contacts = useSelector(getVisibleContacts);
+  const dispatch = useDispatch();
+
+  const onDeleteContact = id => dispatch(contactsActions.deleteContact(id));
+
   return (
     <ContactListStyled>
       {contacts.map(contact => (
@@ -22,7 +39,7 @@ export default function ContactList({ contacts, onDeleteContact }) {
       ))}
     </ContactListStyled>
   );
-}
+};
 
 ContactList.propTypes = {
   items: PropTypes.arrayOf(
@@ -32,5 +49,15 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     }),
   ),
-  onDeleteContact: PropTypes.func.isRequired,
 };
+
+// const mapStateToProps = ({ contacts: { items, filter } }) => ({
+//   contacts: getVisibleContacts(items, filter),
+// });
+
+// const mapDispatchToProps = {
+//   onDeleteContact: id => dispatch(contactsActions.onDeleteContact(id)),
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;
