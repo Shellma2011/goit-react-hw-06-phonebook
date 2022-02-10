@@ -67,7 +67,6 @@ export default function ContactForm() {
   const handleOnSubmit = e => {
     e.preventDefault();
     if (name === '') {
-      // return alert('Заполни текст заметки.');
       return toast.success(`${name} is already in contacts!`);
     }
 
