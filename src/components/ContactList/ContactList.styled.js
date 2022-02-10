@@ -5,7 +5,7 @@ const ContactListStyled = styled.ul`
   align-items: flex-start;
   flex-direction: column;
 
-  width: 300px;
+  width: 340px;
   margin: 20px auto;
 
   padding: 12px 16px;
@@ -22,7 +22,7 @@ const ContactItemStyled = styled.li`
   align-items: center;
   flex-wrap: wrap;
 
-  width: 270px;
+  width: 300px;
   margin: 5px auto;
 
   padding: 12px 16px;

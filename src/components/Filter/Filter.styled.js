@@ -5,7 +5,7 @@ const FilterLabel = styled.label`
   align-items: flex-start;
   flex-direction: column;
 
-  width: 300px;
+  width: 340px;
   margin: 0 auto;
 
   padding: 12px 16px;
@@ -19,7 +19,7 @@ const FilterLabel = styled.label`
 
 const FilterInput = styled.input`
   padding: 4px 12px;
-  width: 270px;
+  width: 300px;
   margin-top: 5px;
   font: inherit;
   line-height: 12px;

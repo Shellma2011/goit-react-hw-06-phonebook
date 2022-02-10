@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const PhonebookForm = styled.form`
-  width: 300px;
+  width: 340px;
   margin: 0 auto;
   padding: 16px;
   border: 1px solid #2a2a2a;
@@ -27,7 +27,7 @@ const PhonebookLabel = styled.label`
 
 const PhonebookInput = styled.input`
   padding: 4px 12px;
-  width: 240px;
+  width: 280px;
   margin-top: 5px;
   font: inherit;
   line-height: 12px;
