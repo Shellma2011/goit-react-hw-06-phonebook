@@ -23,8 +23,8 @@ const ContactList = () => {
   // );
   const contacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
-  console.log('ContactList contacts', contacts);
-  console.log('ContactList dispatch', dispatch);
+  // console.log('ContactList contacts', contacts);
+  // console.log('ContactList dispatch', dispatch);
 
   const onDeleteContact = id => dispatch(contactsActions.deleteContact(id));
 
@@ -34,7 +34,7 @@ const ContactList = () => {
         <ContactItemStyled key={id}>
           <ContactInfoStyled>{name + ':'}</ContactInfoStyled>
           <ContactInfoStyled>{number + ':'}</ContactInfoStyled>
-          <ContactButton type="button" onClick={onDeleteContact(id)}>
+          <ContactButton type="button" onClick={() => onDeleteContact(id)}>
             Delete
           </ContactButton>
         </ContactItemStyled>
